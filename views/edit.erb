@@ -1,0 +1,8 @@
+<h2>Fix a MEMO</h2>
+<form method="post" action="/edit-done/<%= @memo[:id] %>"  >
+	<input required type="text" name="title" class="memo-title border" value="<%= @memo[:title] %>">
+	<textarea name="body" class="memo-body border"><%= @memo[:body] %></textarea>
+  <input type="hidden" name="_method" value="PATCH">
+  <input type= "submit" value="DONE!" class="button add">
+</form>
+<a href="/">BACK</a>

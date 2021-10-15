@@ -1,0 +1,11 @@
+<ul>
+  <% @memos.each_with_index do |memo, i| %>
+  <li>
+    <a href="/show/<%= memo[:id] %>">
+      <%= memo[:title] %></a>
+  </li>
+  <% end %>
+</ul>
+<div>
+  <a href="/new">Create a new memo</a>
+</div>
