@@ -1,11 +1,17 @@
-<h2>Contents of the memo</h2>
-<h3> <%= @memo[:title] %> </h3>
-<p> <%= @memo[:body] %> </p>
-
-<a href="/">BACK</a>
-<a href="/edit/<%= @memo[:id] %>">REVISION</a>
-<form method="post" action="/delete/<%= @memo[:id] %>"  >
-  <input type="hidden" name="_method" value="DELETE">
-  <input type= "submit" value="DELETE" class="button add">
-</form>
+<a class="btn message" href="/">BACK</a>
+<div class="memo">
+　<div class="memo-header">
+    <h3 class="memo-title"> <%= @memo[:title] %> </h3>
+    <p class="memo-body"> <%= @memo[:body] %> </p>
+  </div>
+  <div class="memo-footer">
+    <div class="memo-revision-btn">
+      <a class="btn message" href="/edit/<%= @memo[:id] %>">REVISION</a>
+    </div>
+    <form method="post" action="/delete/<%= @memo[:id] %>"  >
+      <input type="hidden" name="_method" value="DELETE">
+      <input type= "submit" value="DELETE" class="btn message delete">
+    </form>
+  </div>
+</div>
 
