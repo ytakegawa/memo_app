@@ -1,6 +1,7 @@
 require "sinatra"
 require "sinatra/reloader"
 require "json"
+require "cgi"
 
 DB_PATH = "json/memo_db.json"
 DB_DATA =
@@ -53,7 +54,7 @@ get "/edit/:id" do
 end
 
 post "/new" do
-  memo = Memo.new(params[:title], params[:body])
+  memo = Memo.new(CGI.escape_html(params[:title]), CGI.escape_html(params[:body]))
   Memo.rewrite_json(memo.add_memo)
   redirect "/"
 end
@@ -62,7 +63,7 @@ patch "/edit-done/:id" do
   match_memo = Memo.match_id(params[:id])
   change_memo =
     DB_MEMOS.each do |memo|
-      memo[:title], memo[:body] = params[:title], params[:body] if memo[:id] == match_memo[:id].to_i
+      memo[:title], memo[:body] = CGI.escape_html(params[:title]), CGI.escape_html(params[:body]) if memo[:id] == match_memo[:id].to_i
     end
   Memo.rewrite_json(change_memo)
   redirect "/"
