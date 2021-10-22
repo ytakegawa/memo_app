@@ -9,4 +9,6 @@
 2. ターミナルで`bundle exec ruby app.rb`を実行
 3. ブラウザでhttp://localhost:4567/にアクセス
 
-
+# 更新情報
+ver.1 メモ情報をJSONファイルに格納して読み込む仕様
+ver.2 メモ情報をDBに格納して読み込む仕様

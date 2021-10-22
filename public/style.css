@@ -44,6 +44,10 @@ li {
   font-size: 3em;
 }
 
+.header-subtitle{
+  font-size: 0.3em;
+}
+
 .heading{
   margin-bottom: 2em;
 }

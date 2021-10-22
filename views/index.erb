@@ -3,10 +3,10 @@
 </div>
 <div class="memo-list">
   <ul>
-    <% @memos.each_with_index do |memo, i| %>
+    <% @memos.each do |memo| %>
    <li class="memo-title-link">
-      <a href="/show/<%= memo[:id] %>">
-      <%= memo[:title] %></a>
+      <a href="/show/<%= memo["id"] %>">
+      <%= memo["title"] %></a>
    </li>
    <% end %>
   </ul>
