@@ -6,6 +6,7 @@ require 'cgi'
 require 'pg'
 
 DB = PG.connect(dbname: 'memo_app')
+DB.exec('CREATE TABLE IF NOT EXISTS memos (id serial, title text not null, body text, PRIMARY KEY(id))')
 
 class Memo
   attr_reader :title, :body

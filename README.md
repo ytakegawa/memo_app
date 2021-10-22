@@ -6,13 +6,11 @@
 # 使い方
 1. リポジトリをクローン
    git clone https://github.com/ytakegawa/memo_app.git
-2. PostgreSQLを用意
-3. DBを作成する
+2. PostgreSQLを用意します。
+3. 以下SQLでDBを作成します。
   CREATE DATABASE memo_app;
-4. データテーブルを作成する
-  CREATE TABLE memos (id serial, title text not null, body text, PRIMARY KEY(id));
-5. ターミナルで`bundle exec ruby app.rb`を実行
-6. ブラウザでhttp://localhost:4567/にアクセス
+4. ターミナルで`bundle exec ruby app.rb`を実行
+5. ブラウザでhttp://localhost:4567/にアクセス
 
 # 更新情報
 ver.1 メモ情報をJSONファイルに格納して読み込む仕様
