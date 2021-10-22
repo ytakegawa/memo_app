@@ -19,13 +19,25 @@ class Memo
     DB.exec("INSERT INTO memos (title,body) VALUES ('#{@title}','#{@body}')")
   end
 
+  def update_memo(id)
+    DB.exec("UPDATE memos SET title = '#{@title}', body = '#{@body}' WHERE id = '#{id}' ")
+  end
+
+  def self.show_memo
+    DB.exec('SELECT * FROM memos ORDER BY id').to_a
+  end
+
   def self.match_id(id)
     DB.exec("SELECT * FROM memos WHERE id = #{id}").to_a
+  end
+
+  def self.delete_memo(id)
+    DB.exec("DELETE FROM memos WHERE id = #{id} ")
   end
 end
 
 get '/' do
-  @memos = DB.exec('SELECT * FROM memos ORDER BY id').to_a
+  @memos = Memo.show_memo
   erb :index
 end
 
@@ -51,15 +63,13 @@ end
 
 patch '/edit-done/:id' do
   memo = Memo.new(params[:title], params[:body])
-  DB.exec("UPDATE memos SET title = '#{memo.title}', body = '#{memo.body}' WHERE id = '#{params[:id]}' ")
+  memo.update_memo(params[:id])
   redirect '/'
-  erb :index
 end
 
 delete '/delete/:id' do
-  DB.exec("DELETE FROM memos WHERE id = #{params['id']} ")
+  Memo.delete_memo(params[:id])
   redirect '/'
-  erb :index
 end
 
 error 404 do
