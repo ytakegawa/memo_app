@@ -5,7 +5,7 @@
   <ul>
     <% @memos.each_with_index do |memo, i| %>
    <li class="memo-title-link">
-      <a href="/show/<%= memo[:id] %>">
+      <a href="/memos/<%= memo[:id] %>">
       <%= memo[:title] %></a>
    </li>
    <% end %>
