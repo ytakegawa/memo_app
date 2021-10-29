@@ -12,8 +12,8 @@ class Memo
   attr_reader :title, :body
 
   def initialize(title, body)
-    @title = CGI.escape_html title
-    @body = CGI.escape_html body
+    @title = title
+    @body = body
   end
 
   def add_memo
@@ -42,33 +42,43 @@ get '/' do
   erb :index
 end
 
-get '/new' do
+get '/memos/new' do
   erb :new
 end
 
-get '/show/:id' do
+get '/memos/:id' do
   @memo = Memo.match_id(params[:id])[0]
-  erb :show
+  if @memo.nil?
+    @error_message = 'This URL is not valid.'
+    erb :error
+  else
+    erb :show
+  end
 end
 
-get '/edit/:id' do
+get '/memos/:id/edit' do
   @memo = Memo.match_id(params[:id])[0]
-  erb :edit
+  if @memo.nil?
+    @error_message = 'This URL is not valid.'
+    erb :error
+  else
+    erb :edit
+  end
 end
 
-post '/new' do
+post '/memos/new' do
   memo = Memo.new(params[:title], params[:body])
   memo.add_memo
   redirect '/'
 end
 
-patch '/edit-done/:id' do
+patch '/memos/:id/edit-done' do
   memo = Memo.new(params[:title], params[:body])
   memo.update_memo(params[:id])
   redirect '/'
 end
 
-delete '/delete/:id' do
+delete '/memos/:id/delete' do
   Memo.delete_memo(params[:id])
   redirect '/'
 end

@@ -1,17 +1,16 @@
 <a class="btn message" href="/">BACK</a>
 <div class="memo">
-　<div class="memo-header">
-    <h3 class="memo-title"> <%= @memo["title"] %> </h3>
-    <p class="memo-body"> <%= @memo["body"] %> </p>
+  　<div class="memo-header">
+    <h3 class="memo-title"> <%= CGI.escape_html(@memo["title"]) %> </h3>
+    <p class="memo-body"> <%= CGI.escape_html(@memo["body"]) %> </p>
   </div>
   <div class="memo-footer">
     <div class="memo-revision-btn">
-      <a class="btn message" href="/edit/<%= @memo["id"] %>">REVISION</a>
+      <a class="btn message" href="/memos/<%= @memo["id"] %>/edit">REVISION</a>
     </div>
-    <form method="post" action="/delete/<%= @memo["id"] %>"  >
+    <form method="post" action="/memos/<%= @memo["id"] %>/delete">
       <input type="hidden" name="_method" value="DELETE">
-      <input type= "submit" value="DELETE" class="btn message delete">
+      <input type="submit" value="DELETE" class="btn message delete">
     </form>
   </div>
 </div>
-
