@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "sinatra"
-require "sinatra/reloader"
-require "json"
-require "cgi"
+require 'sinatra'
+require 'sinatra/reloader'
+require 'json'
+require 'cgi'
 
-DB_PATH = "json/memo_db.json"
+DB_PATH = 'json/memo_db.json'
 DB_DATA =
   File.open(DB_PATH) do |file|
     JSON.parse(file.read, symbolize_names: true)
@@ -24,7 +24,7 @@ class Memo
   end
 
   def change_memo(id)
-    @db_memos.each do |memo|
+    DB_DATA[:memos].each do |memo|
       if memo[:id] == id.to_i
         memo[:title] = @title
         memo[:body] = @body
@@ -34,7 +34,7 @@ class Memo
 
   def rewrite_json(memo_data)
     memo_to_hash = { memos: memo_data }
-    File.open(DB_PATH, "w") { |file| JSON.dump(memo_to_hash, file) }
+    File.open(DB_PATH, 'w') { |file| JSON.dump(memo_to_hash, file) }
   end
 
   def self.delete_memo(id)
@@ -48,52 +48,52 @@ class Memo
   end
 end
 
-get "/" do
+get '/' do
   @memos = DB_DATA[:memos]
   erb :index
 end
 
-get "/memos/new" do
+get '/memos/new' do
   erb :new
 end
 
-get "/memos/:id" do
+get '/memos/:id' do
   @memo = Memo.match_id(params[:id])
-  if @memo == nil
-    @error_message = "This URL is not valid."
+  if @memo.nil?
+    @error_message = 'This URL is not valid.'
     erb :error
   else
     erb :show
   end
 end
 
-get "/memos/:id/edit" do
+get '/memos/:id/edit' do
   @memo = Memo.match_id(params[:id])
-  if @memo == nil
-    @error_message = "This URL is not valid."
+  if @memo.nil?
+    @error_message = 'This URL is not valid.'
     erb :error
   else
     erb :edit
   end
 end
 
-post "/memos/new" do
+post '/memos/new' do
   memo = Memo.new(params[:title], params[:body])
   memo.rewrite_json(memo.add_memo)
-  redirect "/"
+  redirect '/'
 end
 
-patch "/memos/:id/edit-done" do
+patch '/memos/:id/edit-done' do
   memo = Memo.new(params[:title], params[:body])
   memo.rewrite_json(memo.change_memo(params[:id]))
-  redirect "/"
+  redirect '/'
 end
 
-delete "/memos/:id/delete" do
+delete '/memos/:id/delete' do
   Memo.delete_memo(params[:id])
-  redirect "/"
+  redirect '/'
 end
 
 error 404 do
-  "404 not found sorry.."
+  '404 not found sorry..'
 end
