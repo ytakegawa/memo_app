@@ -4,11 +4,10 @@
 <div class="memo-list">
   <ul>
     <% @memos.each_with_index do |memo, i| %>
-   <li class="memo-title-link">
+    <li class="memo-title-link">
       <a href="/memos/<%= memo[:id] %>">
-      <%= CGI.escape_html(memo[:title]) %></a>
-   </li>
-   <% end %>
+        <%= CGI.escape_html(memo[:title]) %></a>
+    </li>
+    <% end %>
   </ul>
 </div>
-
