@@ -6,9 +6,9 @@
   </div>
   <div class="memo-footer">
     <div class="memo-revision-btn">
-      <a class="btn message" href="/edit/<%= @memo[:id] %>">REVISION</a>
+      <a class="btn message" href="/memos/<%= @memo[:id] %>/edit">REVISION</a>
     </div>
-    <form method="post" action="/delete/<%= @memo[:id] %>"  >
+    <form method="post" action="/memos/<%= @memo[:id] %>/delete"  >
       <input type="hidden" name="_method" value="DELETE">
       <input type= "submit" value="DELETE" class="btn message delete">
     </form>

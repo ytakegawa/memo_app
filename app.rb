@@ -38,15 +38,13 @@ class Memo
   end
 
   def self.delete_memo(id)
-    @db_memos.each do |memo|
-      @db_memos.delete(memo) if memo[:id] == id.to_i
+    DB_DATA[:memos].each do |memo|
+      DB_DATA[:memos].delete(memo) if memo[:id] == id.to_i
     end
   end
 
   def self.match_id(id)
-    match_memo = ""
-    DB_DATA[:memos].each { |memo| match_memo = memo if memo[:id] == id.to_i }
-    match_memo
+    DB_DATA[:memos].find { |memo| memo[:id] == id.to_i }
   end
 end
 
@@ -55,13 +53,13 @@ get "/" do
   erb :index
 end
 
-get "/new" do
+get "/memos/new" do
   erb :new
 end
 
 get "/memos/:id" do
   @memo = Memo.match_id(params[:id])
-  if @memo == ""
+  if @memo == nil
     @error_message = "This URL is not valid."
     erb :error
   else
@@ -69,13 +67,9 @@ get "/memos/:id" do
   end
 end
 
-get "/memos/*" do
-  "this id is not found.."
-end
-
-get "/edit/:id" do
+get "/memos/:id/edit" do
   @memo = Memo.match_id(params[:id])
-  if @memo == ""
+  if @memo == nil
     @error_message = "This URL is not valid."
     erb :error
   else
@@ -83,19 +77,19 @@ get "/edit/:id" do
   end
 end
 
-post "/new" do
+post "/memos/new" do
   memo = Memo.new(params[:title], params[:body])
   memo.rewrite_json(memo.add_memo)
   redirect "/"
 end
 
-patch "/edit-done/:id" do
+patch "/memos/:id/edit-done" do
   memo = Memo.new(params[:title], params[:body])
   memo.rewrite_json(memo.change_memo(params[:id]))
   redirect "/"
 end
 
-delete "/delete/:id" do
+delete "/memos/:id/delete" do
   Memo.delete_memo(params[:id])
   redirect "/"
 end

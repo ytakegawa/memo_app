@@ -1,10 +1,13 @@
 <h2>Create a new MEMO</h2>
 <div class="memo">
 　<div class="memo-header">
-    <form method="post" action="/new">
+    <form method="post" action="/memos/new">
 	  <input class="memo-title" required type="text" name="title" placeholder="title">
 	    <textarea class="memo-body" name="body" placeholder="contents"></textarea>
       <input class="btn message" type= "submit" value="CREATE!" class="button add">   
     </form>
+  </div>
+  <div class="memo-footer">
+    <a class="btn message" href="/">BACK</a>
   </div>
 </div>
