@@ -1,8 +1,8 @@
 <a class="btn message" href="/">BACK</a>
 <div class="memo">
 　<div class="memo-header">
-    <h3 class="memo-title"> <%= @memo[:title] %> </h3>
-    <p class="memo-body"> <%= @memo[:body] %> </p>
+    <h3 class="memo-title"> <%= CGI.escape_html(@memo[:title]) %> </h3>
+    <p class="memo-body"> <%= CGI.escape_html(@memo[:body]) %> </p>
   </div>
   <div class="memo-footer">
     <div class="memo-revision-btn">

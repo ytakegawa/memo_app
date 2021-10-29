@@ -13,8 +13,8 @@ DB_DATA =
 
 class Memo
   def initialize(title, body)
-    @title = CGI.escape_html(title)
-    @body = CGI.escape_html(body)
+    @title = title
+    @body = body
     @db_memos = DB_DATA[:memos]
   end
 

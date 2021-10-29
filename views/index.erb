@@ -6,7 +6,7 @@
     <% @memos.each_with_index do |memo, i| %>
    <li class="memo-title-link">
       <a href="/memos/<%= memo[:id] %>">
-      <%= memo[:title] %></a>
+      <%= CGI.escape_html(memo[:title]) %></a>
    </li>
    <% end %>
   </ul>
