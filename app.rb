@@ -24,7 +24,7 @@ class Memo
   end
 
   def change_memo(id)
-    DB_DATA[:memos].each do |memo|
+    @db_memos.each do |memo|
       if memo[:id] == id.to_i
         memo[:title] = @title
         memo[:body] = @body
@@ -32,14 +32,15 @@ class Memo
     end
   end
 
-  def rewrite_json(memo_data)
+  def self.rewrite_json(memo_data)
     memo_to_hash = { memos: memo_data }
     File.open(DB_PATH, 'w') { |file| JSON.dump(memo_to_hash, file) }
   end
 
   def self.delete_memo(id)
-    DB_DATA[:memos].each do |memo|
-      DB_DATA[:memos].delete(memo) if memo[:id] == id.to_i
+    db_memos = DB_DATA[:memos]
+    db_memos.each do |memo|
+      db_memos.delete(memo) if memo[:id] == id.to_i
     end
   end
 
@@ -79,18 +80,19 @@ end
 
 post '/memos/new' do
   memo = Memo.new(params[:title], params[:body])
-  memo.rewrite_json(memo.add_memo)
+  Memo.rewrite_json(memo.add_memo)
   redirect '/'
 end
 
 patch '/memos/:id/edit-done' do
   memo = Memo.new(params[:title], params[:body])
-  memo.rewrite_json(memo.change_memo(params[:id]))
+  Memo.rewrite_json(memo.change_memo(params[:id]))
   redirect '/'
 end
 
 delete '/memos/:id/delete' do
-  Memo.delete_memo(params[:id])
+  memo = Memo.delete_memo(params[:id])
+  Memo.rewrite_json(memo)
   redirect '/'
 end
 
