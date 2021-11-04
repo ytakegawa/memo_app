@@ -7,6 +7,12 @@ require 'cgi'
 
 DB_PATH = 'json/memo_db.json'
 
+helpers do
+  def escape(text)
+    CGI.escape_html(text)
+  end
+end
+
 class Memo
   def initialize(title, body)
     @title = title
