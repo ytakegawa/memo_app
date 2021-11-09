@@ -78,13 +78,13 @@ post '/memos/new' do
   redirect '/'
 end
 
-patch '/memos/:id/edit-done' do
+patch '/memos/:id' do
   memo = Memo.new(params[:title], params[:body])
   memo.update_memo(params[:id])
   redirect '/'
 end
 
-delete '/memos/:id/delete' do
+delete '/memos/:id' do
   Memo.delete_memo(params[:id])
   redirect '/'
 end

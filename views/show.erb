@@ -8,7 +8,7 @@
     <div class="memo-revision-btn">
       <a class="btn message" href="/memos/<%= @memo["id"] %>/edit">REVISION</a>
     </div>
-    <form method="post" action="/memos/<%= @memo["id"] %>/delete">
+    <form method="post" action="/memos/<%= @memo["id"] %>">
       <input type="hidden" name="_method" value="DELETE">
       <input type="submit" value="DELETE" class="btn message delete">
     </form>
