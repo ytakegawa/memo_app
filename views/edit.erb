@@ -1,7 +1,7 @@
 <h2>Revision a MEMO</h2>
 <div class="memo">
   <div class="memo-header">
-    <form method="post" action="/memos/<%= @memo[:id] %>/edit-done">
+    <form method="post" action="/memos/<%= @memo[:id] %>">
       <input required type="text" name="title" class="memo-title" value="<%= @memo[:title] %>">
       <textarea name="body" class="memo-body"><%= @memo[:body] %></textarea>
       <input type="hidden" name="_method" value="PATCH">
