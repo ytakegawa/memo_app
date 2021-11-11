@@ -14,26 +14,33 @@ helpers do
 end
 
 class Memo
-  def initialize(title, body)
+  def initialize(id, title, body)
+    @id = id
     @title = title
     @body = body
   end
 
-  def add_memo
-    id = Memo.load_memo.empty? ? 1 : Memo.load_memo[-1][:id] + 1
-    Memo.load_memo << { id: id, title: @title, body: @body }
+  def to_hash
+    {
+      id: @id,
+      title: @title,
+      body: @body
+    }
   end
 
-  def change_memo(id)
-    Memo.load_memo.each do |memo|
-      if memo[:id] == id.to_i
-        memo[:title] = @title
-        memo[:body] = @body
-      end
+  def save_memo
+    memos = Memo.load_memo
+    if @id.nil?
+      @id = memos.empty? ? '1' : (memos.last[:id].to_i + 1).to_s
+      memos << to_hash
+    else
+      memos.map! { |memo| memo[:id] == @id ? to_hash : memo }
     end
+    memo_to_hash = { memos: memos }
+    File.open(DB_PATH, 'w') { |file| JSON.dump(memo_to_hash, file) }
   end
 
-  def self.load_memo
+  private_class_method def self.load_memo
     db_load =
       File.open(DB_PATH) do |file|
         JSON.parse(file.read, symbolize_names: true)
@@ -41,20 +48,15 @@ class Memo
     db_load[:memos]
   end
 
-  def self.rewrite_json(memo_data)
-    memo_to_hash = { memos: memo_data }
+  def self.delete_memo(id)
+    memos = Memo.load_memo
+    delete_memo = memos.each { |memo| memo[:id] == id ? memos.delete(memo) : memo }
+    memo_to_hash = { memos: delete_memo }
     File.open(DB_PATH, 'w') { |file| JSON.dump(memo_to_hash, file) }
   end
 
-  def self.delete_memo(id)
-    memos = Memo.load_memo
-    memos.each do |memo|
-      memos.delete(memo) if memo[:id] == id.to_i
-    end
-  end
-
   def self.match_id(id)
-    Memo.load_memo.find { |memo| memo[:id] == id.to_i }
+    Memo.load_memo.find { |memo| memo[:id] == id }
   end
 end
 
@@ -88,20 +90,19 @@ get '/memos/:id/edit' do
 end
 
 post '/memos/new' do
-  memo = Memo.new(params[:title], params[:body])
-  Memo.rewrite_json(memo.add_memo)
+  memo = Memo.new(params[:id], params[:title], params[:body])
+  memo.save_memo
   redirect '/'
 end
 
 patch '/memos/:id' do
-  memo = Memo.new(params[:title], params[:body])
-  Memo.rewrite_json(memo.change_memo(params[:id]))
+  memo = Memo.new(params[:id], params[:title], params[:body])
+  memo.save_memo
   redirect '/'
 end
 
 delete '/memos/:id' do
-  memo = Memo.delete_memo(params[:id])
-  Memo.rewrite_json(memo)
+  Memo.delete_memo(params[:id])
   redirect '/'
 end
 
