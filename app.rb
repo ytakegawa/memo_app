@@ -24,7 +24,7 @@ class Memo
     {
       id: @id,
       title: @title,
-      body: @body
+      body: @body,
     }
   end
 
@@ -40,7 +40,7 @@ class Memo
     File.open(DB_PATH, 'w') { |file| JSON.dump(memo_to_hash, file) }
   end
 
-  private_class_method def self.load_memo
+  def self.load_memo
     db_load =
       File.open(DB_PATH) do |file|
         JSON.parse(file.read, symbolize_names: true)
