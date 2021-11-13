@@ -1,0 +1,13 @@
+<div class="heading">
+  <span class="btn message"><a href="/memos/new">Create a new memo</a></span>
+</div>
+<div class="memo-list">
+  <ul>
+    <% @memos.each do |memo| %>
+    <li class="memo-title-link">
+      <a href="/memos/<%= memo["id"] %>">
+        <%= escape(memo["title"]) %></a>
+    </li>
+    <% end %>
+  </ul>
+</div>
