@@ -1,0 +1,141 @@
+html,
+body,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN W3', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+  font-size: 1.5em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.header {
+  background-color: rgba(149, 219, 233, 0.9);
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid gray;
+}
+
+.contents {
+  margin: 1em;
+}
+
+.header-title {
+  font-size: 3em;
+}
+
+.heading {
+  margin-bottom: 2em;
+}
+
+.heading a {
+  color: white;
+}
+
+.message {
+  padding: 5px 10px;
+  background-color: #3b65a5;
+  cursor: pointer;
+  box-shadow: 0 7px #bec0bf;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.btn {
+  color: white;
+  display: inline-block;
+  opacity: 0.8;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.memo-title-link {
+  margin-bottom: 0.5em;
+}
+
+.memo {
+  padding-bottom: 1em;
+}
+
+.memo {
+  width: 600px;
+  margin: auto;
+}
+
+.memo-title {
+  width: 100%;
+  background-color: #c3eeea;
+  height: 2.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+  border: 1px solid gray;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+}
+
+.memo-body {
+  width: 100%;
+  background-color: #f0f8f7;
+  height: auto;
+  border: 1px solid gray;
+  border-top: none;
+  padding: 1em;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.memo-footer {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+textarea {
+  font-size: 2em;
+  resize: vertical;
+  max-height: 600px;
+}
+
+.footer {
+  padding-top: 2em;
+}
+
+.footer p {
+  font-size: 0.7em;
+  color: gray;
+}
