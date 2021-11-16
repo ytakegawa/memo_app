@@ -73,13 +73,13 @@ get '/memos/:id/edit' do
 end
 
 post '/memos/new' do
-  memo = Memo.new(params[:title], params[:body])
+  memo = Memo.new(escape(params[:title]), escape(params[:body]))
   memo.add_memo
   redirect '/'
 end
 
 patch '/memos/:id' do
-  memo = Memo.new(params[:title], params[:body])
+  memo = Memo.new(escape(params[:title]), escape(params[:body]))
   memo.update_memo(params[:id])
   redirect '/'
 end

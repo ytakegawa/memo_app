@@ -108,6 +108,7 @@ li {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   text-align: center;
+  white-space: pre-line;
 }
 
 .memo-body {
@@ -118,6 +119,7 @@ li {
   border-top: none;
   padding: 1em;
   text-align: left;
+  white-space: pre-line;
 }
 
 .memo-footer {
