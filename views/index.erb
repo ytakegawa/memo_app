@@ -6,7 +6,7 @@
     <% @memos.each do |memo| %>
     <li class="memo-title-link">
       <a href="/memos/<%= memo["id"] %>">
-        <%= memo["title"] %></a>
+        <%= escape(memo["title"]) %></a>
     </li>
     <% end %>
   </ul>

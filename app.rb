@@ -23,11 +23,15 @@ class Memo
   end
 
   def add_memo
-    DB.exec("INSERT INTO memos (title,body) VALUES ('#{@title}','#{@body}')")
+    sql = 'INSERT INTO memos (title,body) VALUES ($1,$2)'
+    params = [@title, @body]
+    DB.exec_params(sql, params)
   end
 
   def update_memo(id)
-    DB.exec("UPDATE memos SET title = '#{@title}', body = '#{@body}' WHERE id = '#{id}' ")
+    sql = 'UPDATE memos SET title = $2, body = $3 WHERE id = $1 '
+    params = [id, @title, @body]
+    DB.exec_params(sql, params)
   end
 
   def self.show_memo
@@ -73,13 +77,13 @@ get '/memos/:id/edit' do
 end
 
 post '/memos/new' do
-  memo = Memo.new(escape(params[:title]), escape(params[:body]))
+  memo = Memo.new(params[:title], params[:body])
   memo.add_memo
   redirect '/'
 end
 
 patch '/memos/:id' do
-  memo = Memo.new(escape(params[:title]), escape(params[:body]))
+  memo = Memo.new(params[:title], params[:body])
   memo.update_memo(params[:id])
   redirect '/'
 end
