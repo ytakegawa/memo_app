@@ -39,11 +39,15 @@ class Memo
   end
 
   def self.match_id(id)
-    DB.exec("SELECT * FROM memos WHERE id = #{id}").to_a
+    sql = 'SELECT * FROM memos WHERE id = $1'
+    params = [id]
+    DB.exec_params(sql, params)
   end
 
   def self.delete_memo(id)
-    DB.exec("DELETE FROM memos WHERE id = #{id} ")
+    sql = 'DELETE FROM memos WHERE id = $1'
+    params = [id]
+    DB.exec_params(sql, params)
   end
 end
 
